@@ -20,7 +20,7 @@ import java.text.ParseException;
  * 
  * @author marcinwatras
  * 
- *  Poprawić działanie dodawania do palet do buforu
+ *  Poprawić działanie wpisywania kodu regału
  *
  */
 
@@ -217,34 +217,18 @@ public class MainLobbyProgram {
                     	
                     	
                     	do {
+                    		isValid = true; 
                     		
                     	try {
                     		
-                    		code = Integer.parseInt(scanner.nextLine());
+                    	code = Integer.parseInt(scanner.nextLine());
                     		
-                    	if(code == 111 || code == 222 || code == 333) {
-                    		
-                    		isValid = true;  
-                    		
-                    	} else {
-                    		isValid = false;
-                    		System.out.println("-----------------------------------------------------------");
-                        	System.out.println();
-                        	System.out.print("            * Podany kod nie należy do tego regału *         ");
-                        	System.out.println();
-                        	System.out.println();
-                        	System.out.println("-----------------------------------------------------------");
-                        	System.out.println();
-                        	System.out.print("                   Wproawdź kod regału: ");
-                        	code = Integer.parseInt(scanner.nextLine());
-                    		
-                    	}
-
+                    
                     	} catch (NumberFormatException e) {
                         	isValid = false;  
                     		System.out.println("-----------------------------------------------------------");
                         	System.out.println();
-                        	System.out.print("             * Podana wartość nie jest liczbą! *             ");
+                        	System.out.print("            * Podany kod nie należy do tego regału *         ");
                         	System.out.println();
                         	System.out.println();
                         	System.out.println("-----------------------------------------------------------");
