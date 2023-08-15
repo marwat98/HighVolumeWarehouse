@@ -64,7 +64,7 @@ public class Arduino {
 	    	System.out.println();
 	    	System.out.println("-----------------------------------------------------------");
         	System.out.println();
-        	System.out.println("              * Zielona dioda została włączona *           ");
+        	System.out.println("             * Zielona dioda została wyłączona *           ");
 	        System.out.println();
 	        System.out.println("-----------------------------------------------------------");
 	        arduinoPort.setBaudRate(9600);
@@ -158,7 +158,7 @@ public class Arduino {
 			System.out.println();
 			System.out.println("-----------------------------------------------------------");
         	System.out.println();
-        	System.out.println("           * Czerwona dioda została włączona *             ");
+        	System.out.println("            * Czerwona dioda została wyłączona *             ");
 	        System.out.println();
 	        System.out.println("-----------------------------------------------------------");
         arduinoPort.setBaudRate(9600);

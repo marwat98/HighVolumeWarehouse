@@ -20,7 +20,7 @@ import java.text.ParseException;
  * 
  * @author marcinwatras
  * 
- *  
+ *  Poprawić działanie dodawania do palet do buforu
  *
  */
 
@@ -161,12 +161,12 @@ public class MainLobbyProgram {
                 	    } catch (NumberFormatException e) {
                 	    	System.out.println("-----------------------------------------------------------");
                 	        System.out.println();
-                	        System.out.print("          * Podana wartość nie jest liczbą *         ");
+                	        System.out.print("            * Podana wartość nie jest liczbą *         ");
                 	        System.out.println();
             	            System.out.println();
             	            System.out.println("-----------------------------------------------------------");
                 	        System.out.println();
-                	        System.out.print("               Wprowadź kod palety: ");
+                	        System.out.print("                  Wprowadź kod palety: ");
 
                 	        isValid = false;  
                 	    }
@@ -186,19 +186,21 @@ public class MainLobbyProgram {
                     weightPallete = Integer.parseInt(scanner.nextLine());
                     
                 	}catch (NumberFormatException e) {
+                		
+                		isValid = false;
                 		System.out.println("-----------------------------------------------------------");
                     	System.out.println();
-                    	System.out.print("       * Podana wartość nie jest wagą *                 ");
+                    	System.out.print("             * Podana wartość nie jest wagą *                 ");
                     	System.out.println();
                     	System.out.println();
                     	System.out.println("-----------------------------------------------------------");
                     	System.out.println();
-                    	System.out.print("         Wproawdź wagę palety: ");
-
-                    	isValid = false;
+                    	System.out.print("                 Wproawdź wagę palety: ");
+                        weightPallete = Integer.parseInt(scanner.nextLine());
                     	
-                	} 
+                		} 
                 	} while(!isValid);
+                	
                 	System.out.println();
                 	System.out.println("-----------------------------------------------------------");
                     
@@ -215,15 +217,18 @@ public class MainLobbyProgram {
                     	
                     	
                     	do {
-                    	    isValid = true;  
+                    		
                     	try {
                     		
-                    	// variable which add special number to column named RackCode 
-                        code = Integer.parseInt(scanner.nextLine());
-                        
-                        if(code != 111 && code != 222 && code != 333) {
-                        	
-                        	System.out.println("-----------------------------------------------------------");
+                    		code = Integer.parseInt(scanner.nextLine());
+                    		
+                    	if(code == 111 || code == 222 || code == 333) {
+                    		
+                    		isValid = true;  
+                    		
+                    	} else {
+                    		isValid = false;
+                    		System.out.println("-----------------------------------------------------------");
                         	System.out.println();
                         	System.out.print("            * Podany kod nie należy do tego regału *         ");
                         	System.out.println();
@@ -231,20 +236,22 @@ public class MainLobbyProgram {
                         	System.out.println("-----------------------------------------------------------");
                         	System.out.println();
                         	System.out.print("                   Wproawdź kod regału: ");
+                        	code = Integer.parseInt(scanner.nextLine());
+                    		
+                    	}
 
-                        	isValid = false;
-                        }
                     	} catch (NumberFormatException e) {
+                        	isValid = false;  
                     		System.out.println("-----------------------------------------------------------");
                         	System.out.println();
-                        	System.out.print("              * Podana wartość nie jest liczbą! *             ");
+                        	System.out.print("             * Podana wartość nie jest liczbą! *             ");
                         	System.out.println();
                         	System.out.println();
                         	System.out.println("-----------------------------------------------------------");
                         	System.out.println();
                         	System.out.print("                   Wproawdź kod regału: ");
-                        	isValid = false;  
-                        	
+                        	code = Integer.parseInt(scanner.nextLine());
+
                     		}
                     	} while (!isValid);  
                     	System.out.println();
@@ -337,19 +344,21 @@ public class MainLobbyProgram {
                 	do {
                 		isValid = true;
                 	
-                	try {
+                		rackCode = scanner.nextLine();
                 		
-                	rackCode = scanner.nextLine();
-                	
-                	} catch (NumberFormatException e) {
-                		System.out.println("-----------------------------------------------------------");
-            	        System.out.println();
-            	        System.out.println("             * Podana wartość nie jest liczbą *             ");
-            	        System.out.println();
-            	        System.out.println("-----------------------------------------------------------");
-            	        System.out.println();
-                    	System.out.print("                  Wproawdź kod regału: ");
-                    	rackCode = scanner.nextLine();
+                		if(rackCode == "111" && rackCode == "222" && rackCode == "333" 
+                				&& rackCode == "101" && rackCode == "202" && rackCode == "303") {
+                			continue;
+                			
+                		} else {
+                			System.out.println("-----------------------------------------------------------");
+                	        System.out.println();
+                	        System.out.println("            * Podany kod regału nie istnieje *             ");
+                	        System.out.println();
+                	        System.out.println("-----------------------------------------------------------");
+                	        System.out.println();
+                        	System.out.print("                  Wproawdź kod regału: ");
+                        	rackCode = scanner.nextLine();
                 		}
                 	} while(!isValid);
                 	
@@ -359,6 +368,20 @@ public class MainLobbyProgram {
             	        System.out.println();
             	        System.out.print("                  Wproawdź kod palety: ");
             	        palleteCode = scanner.nextLine();
+            	        
+            	        if(!isNumber(palleteCode)) {
+                    		System.out.println("-----------------------------------------------------------");
+                	        System.out.println();
+                	        System.out.println("             * Podany kod palety nie istnieje *             ");
+                	        System.out.println();
+                	        System.out.println("-----------------------------------------------------------");
+                	        System.out.println();
+                        	System.out.print("                  Wproawdź kod palety: ");
+                        	palleteCode = scanner.nextLine();
+                        	isValid = false;
+                        	break;
+            	        }
+
                 	    try {
                 	        System.out.println();
                 	        System.out.println("-----------------------------------------------------------");
@@ -366,7 +389,7 @@ public class MainLobbyProgram {
                 	        System.out.print("                  Wproawdź kod buforu: ");
                 	        buforCode = Integer.parseInt(scanner.nextLine());
                 	        
-                	        while (buforCode != 909) {
+                	        if (buforCode != 909) {
                 	        	System.out.println("-----------------------------------------------------------");
                      	        System.out.println();
                      	        System.out.println("           * Podana wartość nie należy do buforu *         ");
@@ -375,6 +398,7 @@ public class MainLobbyProgram {
                      	        System.out.println();
                              	System.out.print("                  Wproawdź kod buforu: ");
                 	            buforCode = Integer.parseInt(scanner.nextLine());
+                	            break;
                 	        }
   
                 	    } catch (NumberFormatException e) {
@@ -388,7 +412,8 @@ public class MainLobbyProgram {
                         	buforCode = Integer.parseInt(scanner.nextLine());
                 	        isValid = false;
                 	        break;
-                	    }
+                	        
+                	    }  
                 	} while(!isValid);
 
                 	System.out.println("-----------------------------------------------------------");
@@ -427,6 +452,7 @@ public class MainLobbyProgram {
                     	System.out.println("-----------------------------------------------------------");
                     	System.out.println();
                     	System.out.print("Podaj datę od kiedy mam sprawdzić: ");
+                    	addDates = scanner.nextLine();
                     	isValid = false;
                     	
                 		} 
@@ -478,7 +504,7 @@ public class MainLobbyProgram {
                 	System.out.println();
                 	System.out.println("-----------------------------------------------------------");
                 	System.out.println();
-                	System.out.println("                * Dziekuje do zobaczenia *                 ");
+                	System.out.println("                * Dziekuje do zobaczenia *                ");
                 	System.out.println();
                 	System.out.println("-----------------------------------------------------------");
                 	System.exit(0);
@@ -497,6 +523,14 @@ public class MainLobbyProgram {
     			return idPallete >= 1001 && idPallete <= 1100;
 		
     			}
+    			public static boolean isNumber(String palleteCode) {
+    		        try {
+    		            Double.parseDouble(palleteCode); 
+    		            return true;
+    		        } catch (NumberFormatException e) {
+    		            return false;
+    		        }
+    		    }
     	
 }
  
