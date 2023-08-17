@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +43,7 @@ public class MainLobbyProgram {
         String palleteCode = null;
         String rackCode = null;
         String addDates = null;
+      
        
         
         //Class which add records in file
@@ -152,10 +157,7 @@ public class MainLobbyProgram {
                 	            System.out.println();
                 	            System.out.println();
                 	            System.out.println("-----------------------------------------------------------");
-                	            System.out.println();
-                	            System.out.print("                   Wprowadź kod palety: ");
-
-                	            isValid = false;  
+                	            isValid = false;
                 	        }
 
                 	    } catch (NumberFormatException e) {
@@ -165,9 +167,6 @@ public class MainLobbyProgram {
                 	        System.out.println();
             	            System.out.println();
             	            System.out.println("-----------------------------------------------------------");
-                	        System.out.println();
-                	        System.out.print("                  Wprowadź kod palety: ");
-
                 	        isValid = false;  
                 	    }
                 	} while (!isValid);  
@@ -186,17 +185,14 @@ public class MainLobbyProgram {
                     weightPallete = Integer.parseInt(scanner.nextLine());
                     
                 	}catch (NumberFormatException e) {
-                		
-                		isValid = false;
+
                 		System.out.println("-----------------------------------------------------------");
                     	System.out.println();
                     	System.out.print("             * Podana wartość nie jest wagą *                 ");
                     	System.out.println();
                     	System.out.println();
                     	System.out.println("-----------------------------------------------------------");
-                    	System.out.println();
-                    	System.out.print("                 Wproawdź wagę palety: ");
-                        weightPallete = Integer.parseInt(scanner.nextLine());
+                    	isValid = false;
                     	
                 		} 
                 	} while(!isValid);
@@ -232,9 +228,6 @@ public class MainLobbyProgram {
                         	System.out.println();
                         	System.out.println();
                         	System.out.println("-----------------------------------------------------------");
-                        	System.out.println();
-                        	System.out.print("                   Wproawdź kod regału: ");
-                        	code = Integer.parseInt(scanner.nextLine());
 
                     		}
                     	} while (!isValid);  
@@ -280,9 +273,6 @@ public class MainLobbyProgram {
                         	System.out.println();
                         	System.out.println();
                         	System.out.println("-----------------------------------------------------------");
-                        	System.out.println();
-                        	System.out.print("                   Wproawdź kod regału: ");
-                        	code = Integer.parseInt(scanner.nextLine());
                         	isValid = false;
                         }
                         
@@ -293,9 +283,6 @@ public class MainLobbyProgram {
                         	System.out.println();
                         	System.out.println();
                         	System.out.println("-----------------------------------------------------------");
-                        	System.out.println();
-                        	System.out.print("               Wproawdź kod regału: ");
-                        	code = Integer.parseInt(scanner.nextLine());
                         	isValid = false;   
                     		}
                     	} while (!isValid); 
@@ -324,47 +311,46 @@ public class MainLobbyProgram {
                 	System.out.println("-----------------------------------------------------------");
                 	System.out.println();
                 	System.out.print("                  Wproawdź kod regału: ");
-                	
+
                 	do {
-                		isValid = true;
-                	
-                		rackCode = scanner.nextLine();
-                		
-                		if(rackCode == "111" && rackCode == "222" && rackCode == "333" 
-                				&& rackCode == "101" && rackCode == "202" && rackCode == "303") {
-                			continue;
-                			
-                		} else {
-                			System.out.println("-----------------------------------------------------------");
+                	    rackCode = scanner.nextLine();
+
+                	    if (rackCode.equals("111") || rackCode.equals("222") || rackCode.equals("333") 
+                	        || rackCode.equals("101") || rackCode.equals("202") || rackCode.equals("303")) {
+                	    	
+                	        isValid = true;
+                	        
+                	    } else {
+                	        System.out.println("-----------------------------------------------------------");
                 	        System.out.println();
                 	        System.out.println("            * Podany kod regału nie istnieje *             ");
                 	        System.out.println();
                 	        System.out.println("-----------------------------------------------------------");
-                	        System.out.println();
-                        	System.out.print("                  Wproawdź kod regału: ");
-                        	rackCode = scanner.nextLine();
-                		}
+                	        isValid = false;
+                	    }
                 	} while(!isValid);
+
                 	
                 	do {
-                		isValid = true;
-                		System.out.println("-----------------------------------------------------------");
-            	        System.out.println();
-            	        System.out.print("                  Wproawdź kod palety: ");
-            	        palleteCode = scanner.nextLine();
-            	        
-            	        if(!isNumber(palleteCode)) {
-                    		System.out.println("-----------------------------------------------------------");
+                	    System.out.println("-----------------------------------------------------------");
+                	    System.out.println();
+                	    System.out.print("                  Wproawdź kod palety: ");
+                	    palleteCode = scanner.nextLine();
+
+                	    isValid = checkRackCodeInDatabase(palleteCode);
+                	    
+                	    if(!isValid) {
+                	        System.out.println("-----------------------------------------------------------");
                 	        System.out.println();
                 	        System.out.println("             * Podany kod palety nie istnieje *             ");
                 	        System.out.println();
                 	        System.out.println("-----------------------------------------------------------");
                 	        System.out.println();
-                        	System.out.print("                  Wproawdź kod palety: ");
-                        	palleteCode = scanner.nextLine();
-                        	isValid = false;
-                        	break;
-            	        }
+                	    }
+                	} while(!isValid);
+
+                	do {
+                		isValid = true;
 
                 	    try {
                 	        System.out.println();
@@ -379,10 +365,7 @@ public class MainLobbyProgram {
                      	        System.out.println("           * Podana wartość nie należy do buforu *         ");
                      	        System.out.println();
                      	        System.out.println("-----------------------------------------------------------");
-                     	        System.out.println();
-                             	System.out.print("                  Wproawdź kod buforu: ");
-                	            buforCode = Integer.parseInt(scanner.nextLine());
-                	            break;
+                	            isValid = false;
                 	        }
   
                 	    } catch (NumberFormatException e) {
@@ -391,11 +374,7 @@ public class MainLobbyProgram {
                 	        System.out.println("             * Podana wartość nie jest liczbą *             ");
                 	        System.out.println();
                 	        System.out.println("-----------------------------------------------------------");
-                	        System.out.println();
-                        	System.out.print("                  Wproawdź kod buforu: ");
-                        	buforCode = Integer.parseInt(scanner.nextLine());
                 	        isValid = false;
-                	        break;
                 	        
                 	    }  
                 	} while(!isValid);
@@ -515,6 +494,30 @@ public class MainLobbyProgram {
     		            return false;
     		        }
     		    }
+    			private static boolean checkRackCodeInDatabase(String rackCode) {
+    				 String url = "jdbc:mysql://localhost:3306/PalletePlace";
+    			  	 String username = "root";
+    			  	 String password = "password1";
+    			  	 
+    			    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+    			        String query = "SELECT Cod FROM PlaceA WHERE Cod = ? " +
+    			                       "UNION " +
+    			                       "SELECT Cod FROM PlaceB WHERE Cod = ? " +
+    			                       "UNION " +
+    			                       "SELECT Cod FROM Bufor WHERE Cod = ? ";
+
+    			        PreparedStatement statement = connection.prepareStatement(query);
+    			        statement.setString(1, rackCode);
+    			        statement.setString(2, rackCode);
+    			        statement.setString(3, rackCode);
+    			        
+    			        ResultSet resultSet = statement.executeQuery();
+    			        return resultSet.next(); 
+    			    } catch (Exception e) {
+    			        e.printStackTrace();
+    			    }
+    			    return false;
+    			}
     	
 }
  

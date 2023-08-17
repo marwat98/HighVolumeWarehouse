@@ -255,7 +255,7 @@ import java.util.stream.Collectors;
 	            PreparedStatement pst = connection.prepareStatement(sql2);
 	            pst.setString(1, palleteCode);
 	            pst.setString(2, weight);
-	            pst.setTimestamp(3, dataAndTime);
+	            pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 	            pst.setInt(4, buforCode);
 	            int rowsInserted = pst.executeUpdate();
 
@@ -314,12 +314,11 @@ import java.util.stream.Collectors;
 	                boolean shouldKeep = !codFromFile.equals(cod.trim().toUpperCase());
 
 	                if (!shouldKeep) {
-	                	System.out.println();
-	                	System.out.println("-------------------------| Cod | Nr.regału | Waga | Data wrzucenia");
-	                    System.out.println();
-	                    System.out.println("Zdjęcie palety o numerze: " + line);
-	                    System.out.println();
-	                    System.out.println("-----------------------------------------------------------");
+	                	System.out.println("-----------------------------------------------------------");
+            	        System.out.println();
+            	        System.out.println("                * Pomyślnie zdjęto paletę *                ");
+            	        System.out.println();
+            	        System.out.println("-----------------------------------------------------------");
 	                } 
 	                return shouldKeep;
 	            }).collect(Collectors.toList());
@@ -335,11 +334,6 @@ import java.util.stream.Collectors;
 	    }
 	}
 
-
-
-
-	        
-	  
 
 	
 		void conWithTablePlaceA() {
