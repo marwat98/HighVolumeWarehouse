@@ -24,7 +24,7 @@ import java.text.ParseException;
  * 
  * @author marcinwatras
  * 
- *  Poprawić działanie wpisywania kodu regału
+ *  
  *
  */
 
@@ -398,7 +398,7 @@ public class MainLobbyProgram {
                 	System.out.println();
                 	System.out.println("-----------------------------------------------------------");
                 	System.out.println();
-                	System.out.print("Podaj datę od kiedy mam sprawdzić: ");
+                	System.out.print("Podaj datę:  ");
                 	//variable which add question in GPT chat
                 	addDates = scanner.nextLine();
                 	
@@ -414,23 +414,22 @@ public class MainLobbyProgram {
                     	System.out.println();
                     	System.out.println("-----------------------------------------------------------");
                     	System.out.println();
-                    	System.out.print("Podaj datę od kiedy mam sprawdzić: ");
-                    	addDates = scanner.nextLine();
+                    	System.out.print("Podaj datę:  ");
                     	isValid = false;
                     	
                 		} 
                 	}	while(!isValid);
                 	
-                	System.out.println();
-                	System.out.print("Sprawdzam daty proszę o chwilę cierpliwości....");
-                	System.out.println();
-                	System.out.println();
                 	
                 	do {
                 		isValid = true;
                 	try {
                 		
                         dateFormat.parse(addDates);
+                        System.out.println();
+                    	System.out.print("Sprawdzam daty proszę o chwilę cierpliwości....");
+                    	System.out.println();
+                    	System.out.println();
                         
                         //viarbale which has function avaliable in ChatGPT class
                         sugestion = connectionWithGPT.addSugestionForPallete(programMenager.getPalletePlaces(),addDates);
@@ -442,11 +441,8 @@ public class MainLobbyProgram {
                     	System.out.println();
                     	System.out.println("-----------------------------------------------------------");
                     	System.out.println();
-                    	System.out.print("Podaj datę od kiedy mam sprawdzić: ");
+                    	System.out.print("Podaj datę: ");
                     	addDates = scanner.nextLine();
-                    	System.out.println();
-                    	System.out.print("Sprawdzam daty proszę o chwilę cierpliwości....");
-                    	System.out.println();
                     	isValid = false;
                     	
                     	}
