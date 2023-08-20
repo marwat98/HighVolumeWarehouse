@@ -61,7 +61,18 @@ public class MainLobbyProgram {
         //Class which implements date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
   
-        //Loop which show possibility choose option
+        // Travers code 1A
+        RackCoder rack1A = new RackCoder("111");
+        // Travers code 2A
+        RackCoder rack2A = new RackCoder("222");
+        // Travers code 3A
+        RackCoder rack3A = new RackCoder("333");
+        // Travers code 1B
+        RackCoder rack1B = new RackCoder("101");
+        // Travers code 2B
+        RackCoder rack2B = new RackCoder("202");
+        // Travers code 3B
+        RackCoder rack3B = new RackCoder("303");
         
         
         System.out.println();
@@ -315,8 +326,8 @@ public class MainLobbyProgram {
                 	do {
                 	    rackCode = scanner.nextLine();
 
-                	    if (rackCode.equals("111") || rackCode.equals("222") || rackCode.equals("333") 
-                	        || rackCode.equals("101") || rackCode.equals("202") || rackCode.equals("303")) {
+                	    if (rackCode.equals(rack1A) || rackCode.equals(rack2A) || rackCode.equals(rack3A) 
+                	        || rackCode.equals(rack1B) || rackCode.equals(rack2B) || rackCode.equals(rack3B)) {
                 	    	
                 	        isValid = true;
                 	        
