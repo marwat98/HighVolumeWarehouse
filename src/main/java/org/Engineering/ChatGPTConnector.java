@@ -21,7 +21,7 @@ public class ChatGPTConnector {
 	public String addSugestionForPallete(List<String> dates,String addDates) {
 		
 		String allWeight = String.join(",", dates);
-		String question = "Mam na regale palety z " + dates + "Jeżeli daty są z 3 dni wcześniej zasugeruj ich zdjęcie. Podaje ci daty palet które musisz sprawdzić pamiętaj mają ona być 3 dni wcześniej od daty podania" + addDates ;
+		String question = "Mam na regale palety z " + dates + "Zaproponuj mi usunięcie palet które daty są wcześniejsze od podanej " + addDates + "Proszę o dokładne prześledzenie dat i wypisanie całej zawartości" ;
 		
 		return askChatGPT(question);
 	}
