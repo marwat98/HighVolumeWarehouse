@@ -326,8 +326,8 @@ public class MainLobbyProgram {
                 	do {
                 	    rackCode = scanner.nextLine();
 
-                	    if (rackCode.equals(rack1A) || rackCode.equals(rack2A) || rackCode.equals(rack3A) 
-                	        || rackCode.equals(rack1B) || rackCode.equals(rack2B) || rackCode.equals(rack3B)) {
+                	    if (rackCode.equals("111") || rackCode.equals("222") || rackCode.equals("333") 
+                	        || rackCode.equals("101") || rackCode.equals("202") || rackCode.equals("303")) {
                 	    	
                 	        isValid = true;
                 	        
